@@ -5,57 +5,62 @@ import Produtos from "./Cards/Produtos"
 import Carrinho from "./Carrinho/Carrinho";
 
 function App() {
-  const [listaDeProdutos, setListadeProdutos]= useState([
-    {
-      id: 1,
-      name: 'Produto legal',
-      price: 123,
-      photo: 'https://picsum.photos/200/200?a=1',
-    },
-    {
-      id: 2,
-      name: 'Produto 2',
-      price: 200,
-      photo: 'https://picsum.photos/200/200?a=2'
-    },
-    {
-      id: 3,
-      name: 'Produto 3',
-      price: 30,
-      photo: 'https://picsum.photos/200/200?a=3'
-    },
-    {
-      id: 4,
-      name: 'Produto 4',
-      price: 10,
-      photo: 'https://picsum.photos/200/200?a=4'
+  const [listaDeProdutos] = useState(pacoteDeProdutos)
+  const [carrinho, setCarrinho] = useState([])
+
+  const adicionarAoCarrinho = (produto) => {
+    let produtoJaNoCarrinho = false;
+    
+    const novoCarrinho = carrinho.map((item) => {
+      if (item.name === produto.name) {
+        produtoJaNoCarrinho =true;
+        item.quantidade++
+      }
+      return item
+    })
+
+    if (!produtoJaNoCarrinho) {
+      const novoProduto = {
+        ...produto,
+        quantidade: 1
+      }
+      novoCarrinho.push(novoProduto)
     }
- ])
-  const [carrinho,setCarrinho] = useState([])
-  const [valorTotal,setValarToal]= useState(0)
-
-  const addToCar = (produto) =>{
-    const novoCar = [...carrinho, produto]
-    setCarrinho(novoCar)
-    console.log(produto)
-
+    setCarrinho(novoCarrinho)
   }
 
- const produtos = listaDeProdutos.map(item =>{
-  return <Produtos 
-          produto={item} 
-          addToCar={addToCar}
-          />
+ const removerDoCarrinho =(produto) =>{
+ 
+    const carrinoNovo = carrinho.filter((item)=>{
+      if(item.name ===produto.name && item.quantidade ===1){
+        return false
+      }
+      return item
+    }).map((item)=>{
+      if(produto.name === item.name){
+        produto.quantidade--
+      }
+      return item
 
- })
+    })
+    setCarrinho(carrinoNovo)
+ }
 
+  const produtos = listaDeProdutos.map(item => {
+    return <Produtos
+      key={item.id}
+      produto={item}
+      adicionarAoCarrinho={adicionarAoCarrinho}
+    />
 
+  })
   return (
     <div>
       {produtos}
-      <br>
-      </br>
-      <Carrinho carrinho={carrinho}></Carrinho>
+      <Carrinho 
+          carrinho={carrinho}
+          removerDoCarrinho={removerDoCarrinho}
+      ></Carrinho>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const ItensStyled = styled.div `
@@ -17,8 +17,9 @@ margin:10px;
 function Itens(props) {
 
     return <ItensStyled>
-            <p>{props.nome}</p>
+            <p>{props.name}</p>
             <p>Quantidade:{props.quantidade} </p>
+            <button onClick={()=>props.removerDoCarrinho(props.produto)}>Remover</button>
              </ItensStyled>
 
 }

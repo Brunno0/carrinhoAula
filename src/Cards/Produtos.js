@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import App from "../App";
+
 
 const CardProdutos = styled.div `
 display: grid;
@@ -11,7 +11,7 @@ display: grid;
 `
 
 function Produtos(props) {
- 
+
 return <div> 
 
   <CardProdutos>
@@ -19,7 +19,7 @@ return <div>
   
   <p>{props.produto.price}</p>
  
-  <button onClick={()=>props.addToCar(props.produto)}>Comprar</button>
+  <button onClick={()=>props.adicionarAoCarrinho(props.produto)}>Comprar</button>
   </CardProdutos>
 
 </div>
