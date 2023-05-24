@@ -15,10 +15,8 @@ function Produtos(props) {
 return <div> 
 
   <CardProdutos>
-     {props.produto.name} 
-  
+     <p>{props.produto.name}</p> 
   <p>{props.produto.price}</p>
- 
   <button onClick={()=>props.adicionarAoCarrinho(props.produto)}>Comprar</button>
   </CardProdutos>
 
