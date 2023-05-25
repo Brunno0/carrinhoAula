@@ -7,7 +7,7 @@ import Carrinho from "./Carrinho/Carrinho";
 function App() {
   const [listaDeProdutos] = useState(pacoteDeProdutos)
   const [carrinho, setCarrinho] = useState([])
-  
+
   const adicionarAoCarrinho = (produto) => {
     let produtoJaNoCarrinho = false;
     
@@ -38,7 +38,7 @@ function App() {
       return item
     }).map((item)=>{
       if(produto.name === item.name){
-        produto.quantidade--
+        item.quantidade--
       }
       return item
 
