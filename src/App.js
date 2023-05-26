@@ -44,14 +44,10 @@ function App() {
       }
   },[])
 
-
  const removerDoCarrinho =(produto) =>{
-
     const carrinoNovo = carrinho.filter((item)=>{
-      if (carrinho.length === 1 && produto.quantidade===1){
-        localStorage.removeItem('car')
-      }
       if(item.name ===produto.name && item.quantidade ===1){
+        localStorage.removeItem('car')
         return false
       }
       return item
