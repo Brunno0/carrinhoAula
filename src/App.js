@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { pacoteDeProdutos } from "./pacoteDeProdutos";
 import Produtos from "./Cards/Produtos"
@@ -29,9 +29,28 @@ function App() {
     setCarrinho(novoCarrinho)
   }
 
+  useEffect(()=>{
+
+    if(carrinho.length>0){
+      localStorage.setItem('car', JSON.stringify(carrinho))
+    }
+
+  },[carrinho])
+
+  useEffect(()=>{
+      const carrinhoLocalStorage = localStorage.getItem('car')
+      if(carrinhoLocalStorage){
+        setCarrinho(JSON.parse(carrinhoLocalStorage))
+      }
+  },[])
+
+
  const removerDoCarrinho =(produto) =>{
- 
+
     const carrinoNovo = carrinho.filter((item)=>{
+      if (carrinho.length === 1 && produto.quantidade===1){
+        localStorage.removeItem('car')
+      }
       if(item.name ===produto.name && item.quantidade ===1){
         return false
       }
@@ -41,7 +60,6 @@ function App() {
         item.quantidade--
       }
       return item
-
     })
     setCarrinho(carrinoNovo)
  }
